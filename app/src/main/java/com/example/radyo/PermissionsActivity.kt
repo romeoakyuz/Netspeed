@@ -22,6 +22,7 @@ class PermissionsActivity : AppCompatActivity() {
     private lateinit var txtNotifStatus: TextView
     private lateinit var txtBatteryStatus: TextView
     private lateinit var txtAutoStatus: TextView
+    private lateinit var btnGrantAuto: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +32,7 @@ class PermissionsActivity : AppCompatActivity() {
         txtNotifStatus = findViewById(R.id.txtNotifStatus)
         txtBatteryStatus = findViewById(R.id.txtBatteryStatus)
         txtAutoStatus = findViewById(R.id.txtAutoStatus)
+        btnGrantAuto = findViewById(R.id.btnGrantAuto)
 
         findViewById<Button>(R.id.btnGrantOverlay).setOnClickListener {
             startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName")))
@@ -55,14 +57,17 @@ class PermissionsActivity : AppCompatActivity() {
             }
         }
 
-        findViewById<Button>(R.id.btnGrantAuto).setOnClickListener {
+        btnGrantAuto.setOnClickListener {
             try {
                 val intent = Intent().apply {
                     component = ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity")
                 }
                 startActivity(intent)
+                // Kullanıcı tıkladığında yeşil tik vererek onaylandı hissi oluşturalım
+                txtAutoStatus.text = "✅"
+                btnGrantAuto.text = "Ayarlandı"
             } catch (e: Exception) {
-                Toast.makeText(this, "Bu menü cihazınızda bulunamadı.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Güvenlik merkezi açılamadı, manuel kontrol edin.", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -73,14 +78,12 @@ class PermissionsActivity : AppCompatActivity() {
     }
 
     private fun updatePermissionStatusUI() {
-        // 1. Overlay İzni Kontrolü
         if (Settings.canDrawOverlays(this)) {
             txtOverlayStatus.text = "✅"
         } else {
             txtOverlayStatus.text = "❌"
         }
 
-        // 2. Bildirim İzni Kontrolü
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
                 txtNotifStatus.text = "✅"
@@ -91,15 +94,11 @@ class PermissionsActivity : AppCompatActivity() {
             txtNotifStatus.text = "✅"
         }
 
-        // 3. Pil Optimizasyonu Kontrolü
         val pm = getSystemService(POWER_SERVICE) as PowerManager
         if (pm.isIgnoringBatteryOptimizations(packageName)) {
             txtBatteryStatus.text = "✅"
         } else {
             txtBatteryStatus.text = "❌"
         }
-
-        // 4. Otomatik Başlatma Bilgilendirme
-        txtAutoStatus.text = "ℹ️"
     }
 }
