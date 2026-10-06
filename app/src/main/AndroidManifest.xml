@@ -27,6 +27,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".PermissionsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Netspeed" />
+
         <service
             android:name=".NetworkSpeedService"
             android:foregroundServiceType="dataSync"

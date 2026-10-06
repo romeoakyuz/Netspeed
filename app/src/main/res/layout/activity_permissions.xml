@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#121824" android:padding="16dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="İzinler ve Sistem Durumu" android:textColor="#FFFFFF" android:textSize="20sp" android:textStyle="bold" android:paddingBottom="16dp"/>
+
+        <!-- 1. Overlay İzni -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:background="#1E293B" android:padding="12dp" android:layout_marginBottom="8dp">
+            <TextView android:id="@+id/txtOverlayStatus" android:layout_width="35dp" android:layout_height="wrap_content" android:text="❌" android:textSize="18sp"/>
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ekranda Gösterme (Overlay)" android:textColor="#FFFFFF" android:textStyle="bold"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Widget'ın ekranda görünmesi için şarttır." android:textColor="#94A3B8" android:textSize="12sp"/>
+            </LinearLayout>
+            <Button android:id="@+id/btnGrantOverlay" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="İzin Ver" android:backgroundTint="#0288D1"/>
+        </LinearLayout>
+
+        <!-- 2. Bildirim İzni -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:background="#1E293B" android:padding="12dp" android:layout_marginBottom="8dp">
+            <TextView android:id="@+id/txtNotifStatus" android:layout_width="35dp" android:layout_height="wrap_content" android:text="❌" android:textSize="18sp"/>
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Bildirim İzni" android:textColor="#FFFFFF" android:textStyle="bold"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Durum çubuğunda hızın görünmesi için gereklidir." android:textColor="#94A3B8" android:textSize="12sp"/>
+            </LinearLayout>
+            <Button android:id="@+id/btnGrantNotif" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="İzin Ver" android:backgroundTint="#0288D1"/>
+        </LinearLayout>
+
+        <!-- 3. Pil Optimizasyonu -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:background="#1E293B" android:padding="12dp" android:layout_marginBottom="8dp">
+            <TextView android:id="@+id/txtBatteryStatus" android:layout_width="35dp" android:layout_height="wrap_content" android:text="❌" android:textSize="18sp"/>
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pil Optimizasyonunu Kapat" android:textColor="#FFFFFF" android:textStyle="bold"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Arka planda kapanmaması için kısıtlamayı kaldırın." android:textColor="#94A3B8" android:textSize="12sp"/>
+            </LinearLayout>
+            <Button android:id="@+id/btnGrantBattery" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="İzin Ver" android:backgroundTint="#0288D1"/>
+        </LinearLayout>
+
+        <!-- 4. Otomatik Başlatma -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:background="#1E293B" android:padding="12dp" android:layout_marginBottom="8dp">
+            <TextView android:id="@+id/txtAutoStatus" android:layout_width="35dp" android:layout_height="wrap_content" android:text="⚠️" android:textSize="18sp"/>
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Otomatik Başlatma (Xiaomi)" android:textColor="#FFFFFF" android:textStyle="bold"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Telefon yeniden başlayınca otomatik açılması için." android:textColor="#94A3B8" android:textSize="12sp"/>
+            </LinearLayout>
+            <Button android:id="@+id/btnGrantAuto" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ayarla" android:backgroundTint="#0288D1"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
