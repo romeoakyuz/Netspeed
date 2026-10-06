@@ -14,20 +14,28 @@
         <!-- DİKEY EKRAN AYARLARI -->
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:text="DİKEY EKRAN (PORTRAIT) AYARLARI" android:textColor="#4DD0E1" android:textStyle="bold" />
         
-        <TextView android:id="@+id/lblPortX" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="X Eksen: 240 px" android:textColor="#FFFFFF" />
-        <SeekBar android:id="@+id/seekBarPortX" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="1500" android:progress="240" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="10dp" android:gravity="center_vertical">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="X:" android:textColor="#FFFFFF" />
+            <EditText android:id="@+id/etPortX" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:inputType="numberSigned" android:textColor="#FFFFFF" android:background="#1E293B" android:padding="10dp" android:layout_marginStart="8dp" android:textAlignment="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Y:" android:textColor="#FFFFFF" android:layout_marginStart="16dp"/>
+            <EditText android:id="@+id/etPortY" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:inputType="numberSigned" android:textColor="#FFFFFF" android:background="#1E293B" android:padding="10dp" android:layout_marginStart="8dp" android:textAlignment="center"/>
+        </LinearLayout>
         
-        <TextView android:id="@+id/lblPortY" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="Y Eksen: 10 px" android:textColor="#FFFFFF" />
-        <SeekBar android:id="@+id/seekBarPortY" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="2500" android:progress="10" />
+        <SeekBar android:id="@+id/seekBarPortX" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:min="-200" android:max="1500" />
+        <SeekBar android:id="@+id/seekBarPortY" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:min="-200" android:max="2500" />
 
         <!-- YATAY EKRAN AYARLARI -->
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:text="YATAY EKRAN (LANDSCAPE) AYARLARI" android:textColor="#FFA726" android:textStyle="bold" />
         
-        <TextView android:id="@+id/lblLandX" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="X Eksen: 500 px" android:textColor="#FFFFFF" />
-        <SeekBar android:id="@+id/seekBarLandX" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="2500" android:progress="500" />
-        
-        <TextView android:id="@+id/lblLandY" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="Y Eksen: 10 px" android:textColor="#FFFFFF" />
-        <SeekBar android:id="@+id/seekBarLandY" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="1500" android:progress="10" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="10dp" android:gravity="center_vertical">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="X:" android:textColor="#FFFFFF" />
+            <EditText android:id="@+id/etLandX" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:inputType="numberSigned" android:textColor="#FFFFFF" android:background="#1E293B" android:padding="10dp" android:layout_marginStart="8dp" android:textAlignment="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Y:" android:textColor="#FFFFFF" android:layout_marginStart="16dp"/>
+            <EditText android:id="@+id/etLandY" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:inputType="numberSigned" android:textColor="#FFFFFF" android:background="#1E293B" android:padding="10dp" android:layout_marginStart="8dp" android:textAlignment="center"/>
+        </LinearLayout>
+
+        <SeekBar android:id="@+id/seekBarLandX" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:min="-200" android:max="2500" />
+        <SeekBar android:id="@+id/seekBarLandY" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:min="-200" android:max="1500" />
         
         <!-- GENEL GÖRÜNÜM AYARLARI -->
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:text="GÖRÜNÜM" android:textColor="#4DD0E1" android:textStyle="bold" />

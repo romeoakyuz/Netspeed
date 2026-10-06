@@ -95,7 +95,11 @@ class NetworkSpeedService : Service() {
 
         txtWidgetSpeed.textSize = prefs.getFloat("text_size", 11.0f)
 
-        var flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+        // STATUS BAR'A GİREBİLMESİ İÇİN KRİTİK BAYRAK: FLAG_LAYOUT_NO_LIMITS
+        var flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or 
+                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or 
+                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+
         if (touchPass) flags = flags or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
 
         val params = WindowManager.LayoutParams(
@@ -106,6 +110,12 @@ class NetworkSpeedService : Service() {
         params.gravity = Gravity.TOP or Gravity.START
         params.x = x
         params.y = y
+
+        // XIAOMI ÇENTİK (NOTCH) ENGELİNİ AŞMAK İÇİN KRİTİK AYAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            params.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+        }
+        
         return params
     }
 
@@ -115,7 +125,7 @@ class NetworkSpeedService : Service() {
                 val currentOrientation = resources.configuration.orientation
                 if (currentOrientation != lastOrientation) {
                     lastOrientation = currentOrientation
-                    updateWidgetParams() // Ekran yatay/dikey değişince pozisyonu anında güncelle
+                    updateWidgetParams()
                 }
 
                 val currentRxBytes = TrafficStats.getTotalRxBytes()
@@ -147,7 +157,6 @@ class NetworkSpeedService : Service() {
     }
 
     private fun updateNotificationDynamicIcon(value: String, unit: String) {
-        // Durum çubuğu ikonu için anlık Bitmap oluşturucu
         val bitmap = Bitmap.createBitmap(128, 128, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -168,7 +177,7 @@ class NetworkSpeedService : Service() {
                 .setContentTitle("NetSpeed: $value $unit")
                 .setSmallIcon(dynamicIcon)
                 .setOngoing(true)
-                .setOnlyAlertOnce(true) // Titreşim/ses spamını önler
+                .setOnlyAlertOnce(true)
                 .build()
         } else {
             @Suppress("DEPRECATION")
