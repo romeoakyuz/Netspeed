@@ -32,7 +32,7 @@ jobs:
 
     - name: Generate Gradle Wrapper
       run: |
-        GRADLE_VERSION="8.0"
+        GRADLE_VERSION="8.4"
         wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
         unzip -q gradle-${GRADLE_VERSION}-bin.zip
         export PATH=$PWD/gradle-${GRADLE_VERSION}/bin:$PATH
@@ -45,7 +45,7 @@ jobs:
       run: |
         export ANDROID_HOME=$HOME/android-sdk
         unset ANDROID_SDK_ROOT
-        ./gradlew assembleDebug --no-daemon
+        ./gradlew assembleDebug --no-daemon --stacktrace
 
     - name: Rename APK
       run: mv app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/radyo.apk
