@@ -31,15 +31,21 @@ class MainActivity : AppCompatActivity() {
         val prefs = getSharedPreferences("NetSpeedPrefs", MODE_PRIVATE)
         isUpdating = true
         
-        binding.etPortX.setText(prefs.getInt("pos_x_port", 240).toString())
-        binding.etPortY.setText(prefs.getInt("pos_y_port", 10).toString())
-        binding.etLandX.setText(prefs.getInt("pos_x_land", 500).toString())
-        binding.etLandY.setText(prefs.getInt("pos_y_land", 10).toString())
+        // Gönderdiğiniz görsele göre varsayılan değerler sabitlendi[span_2](start_span)[span_2](end_span)
+        val portX = prefs.getInt("pos_x_port", 240)[span_3](start_span)[span_3](end_span)
+        val portY = prefs.getInt("pos_y_port", 10)[span_4](start_span)[span_4](end_span)
+        val landX = prefs.getInt("pos_x_land", 300)[span_5](start_span)[span_5](end_span)
+        val landY = prefs.getInt("pos_y_land", 0)[span_6](start_span)[span_6](end_span)
 
-        binding.seekBarPortX.progress = prefs.getInt("pos_x_port", 240)
-        binding.seekBarPortY.progress = prefs.getInt("pos_y_port", 10)
-        binding.seekBarLandX.progress = prefs.getInt("pos_x_land", 500)
-        binding.seekBarLandY.progress = prefs.getInt("pos_y_land", 10)
+        binding.etPortX.setText(portX.toString())
+        binding.etPortY.setText(portY.toString())
+        binding.etLandX.setText(landX.toString())
+        binding.etLandY.setText(landY.toString())
+
+        binding.seekBarPortX.progress = portX
+        binding.seekBarPortY.progress = portY
+        binding.seekBarLandX.progress = landX
+        binding.seekBarLandY.progress = landY
 
         val textSize = prefs.getFloat("text_size", 11.0f)
         binding.seekBarTextSize.progress = textSize.toInt()
