@@ -59,10 +59,10 @@ class NetworkSpeedService : Service() {
             notificationManager.createNotificationChannel(channel)
         }
         val notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Notification.Builder(this, CHANNEL_ID).setContentTitle("NetSpeed Başlatılıyor...").setSmallIcon(R.drawable.ic_logo).build()
+            Notification.Builder(this, CHANNEL_ID).setContentTitle("NetSpeed Çalışıyor").setSmallIcon(R.drawable.ic_logo).build()
         } else {
             @Suppress("DEPRECATION")
-            Notification.Builder(this).setContentTitle("NetSpeed Başlatılıyor...").setSmallIcon(R.drawable.ic_logo).build()
+            Notification.Builder(this).setContentTitle("NetSpeed Çalışıyor").setSmallIcon(R.drawable.ic_logo).build()
         }
         startForeground(1, notification)
     }
@@ -131,7 +131,7 @@ class NetworkSpeedService : Service() {
 
                 if (timeElapsed > 0) {
                     val bytesPerSec = (currentRxBytes - lastRxBytes) / timeElapsed
-                    val (value, unit) = formatSpeedPartsSpeedtest(bytesPerSec)
+                    val (value, unit) = formatSpeedPartsInteger(bytesPerSec)
                     
                     txtWidgetSpeed.text = "$value $unit"
                     updateNotificationDynamicIcon(value, unit)
@@ -145,14 +145,14 @@ class NetworkSpeedService : Service() {
         handler.post(runnable)
     }
 
-    // SPEEDTEST FORMATI: Mbps (Megabit/s) ve Kbps (Kilobit/s) 
-    private fun formatSpeedPartsSpeedtest(bytesPerSec: Double): Pair<String, String> {
-        val bitsPerSec = bytesPerSec * 8.0 // Byte'ı bit'e çeviriyoruz
+    // KÜSURATSIZ (TAM SAYI) SPEEDTEST FORMATİ: Örn: 187 Mbps / 45 Kbps
+    private fun formatSpeedPartsInteger(bytesPerSec: Double): Pair<String, String> {
+        val bitsPerSec = bytesPerSec * 8.0
         
         return when {
-            bitsPerSec >= 1_000_000 -> Pair(String.format(Locale.US, "%.2f", bitsPerSec / 1_000_000), "Mbps")
-            bitsPerSec >= 1_000 -> Pair(String.format(Locale.US, "%.1f", bitsPerSec / 1_000), "Kbps")
-            else -> Pair(String.format(Locale.US, "%d", bitsPerSec.toInt()), "bps")
+            bitsPerSec >= 1_000_000 -> Pair(String.format(Locale.US, "%d", (bitsPerSec / 1_000_000).toLong()), "Mbps")
+            bitsPerSec >= 1_000 -> Pair(String.format(Locale.US, "%d", (bitsPerSec / 1_000).toLong()), "Kbps")
+            else -> Pair(String.format(Locale.US, "%d", bitsPerSec.toLong()), "bps")
         }
     }
 
