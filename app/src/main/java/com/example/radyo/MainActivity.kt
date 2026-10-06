@@ -31,11 +31,10 @@ class MainActivity : AppCompatActivity() {
         val prefs = getSharedPreferences("NetSpeedPrefs", MODE_PRIVATE)
         isUpdating = true
         
-        // Gönderdiğiniz görsele göre varsayılan değerler sabitlendi[span_2](start_span)[span_2](end_span)
-        val portX = prefs.getInt("pos_x_port", 240)[span_3](start_span)[span_3](end_span)
-        val portY = prefs.getInt("pos_y_port", 10)[span_4](start_span)[span_4](end_span)
-        val landX = prefs.getInt("pos_x_land", 300)[span_5](start_span)[span_5](end_span)
-        val landY = prefs.getInt("pos_y_land", 0)[span_6](start_span)[span_6](end_span)
+        val portX = prefs.getInt("pos_x_port", 240)
+        val portY = prefs.getInt("pos_y_port", 10)
+        val landX = prefs.getInt("pos_x_land", 300)
+        val landY = prefs.getInt("pos_y_land", 0)
 
         binding.etPortX.setText(portX.toString())
         binding.etPortY.setText(portY.toString())
