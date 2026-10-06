@@ -1,13 +1,17 @@
 package com.example.radyo
 
 import android.Manifest
+import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
 import android.provider.Settings
 import android.widget.EditText
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -16,7 +20,7 @@ import com.example.radyo.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var isUpdating = false // Sonsuz döngüyü engellemek için
+    private var isUpdating = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         checkPermissions()
         loadSettingsToUI()
         setupListeners()
+        setupPermissionButtons()
     }
 
     private fun checkPermissions() {
@@ -39,24 +44,44 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupPermissionButtons() {
+        binding.btnBattery.setOnClickListener {
+            val intent = Intent()
+            val pm = getSystemService(POWER_SERVICE) as PowerManager
+            if (pm.isIgnoringBatteryOptimizations(packageName)) {
+                Toast.makeText(this, "Pil optimizasyonu zaten kapalı!", Toast.LENGTH_SHORT).show()
+            } else {
+                intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+                intent.data = Uri.parse("package:$packageName")
+                startActivity(intent)
+            }
+        }
+
+        binding.btnAutoStart.setOnClickListener {
+            try {
+                val intent = Intent()
+                intent.component = ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity")
+                startActivity(intent)
+                Toast.makeText(this, "Açılan listeden NetSpeed'i bulup aktifleştirin.", Toast.LENGTH_LONG).show()
+            } catch (e: Exception) {
+                Toast.makeText(this, "Cihazınızda bu menü bulunamadı.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun loadSettingsToUI() {
         val prefs = getSharedPreferences("NetSpeedPrefs", MODE_PRIVATE)
-        
         isUpdating = true
-        val portX = prefs.getInt("pos_x_port", 240)
-        val portY = prefs.getInt("pos_y_port", 10)
-        val landX = prefs.getInt("pos_x_land", 500)
-        val landY = prefs.getInt("pos_y_land", 10)
         
-        binding.etPortX.setText(portX.toString())
-        binding.etPortY.setText(portY.toString())
-        binding.etLandX.setText(landX.toString())
-        binding.etLandY.setText(landY.toString())
+        binding.etPortX.setText(prefs.getInt("pos_x_port", 240).toString())
+        binding.etPortY.setText(prefs.getInt("pos_y_port", 10).toString())
+        binding.etLandX.setText(prefs.getInt("pos_x_land", 500).toString())
+        binding.etLandY.setText(prefs.getInt("pos_y_land", 10).toString())
 
-        binding.seekBarPortX.progress = portX
-        binding.seekBarPortY.progress = portY
-        binding.seekBarLandX.progress = landX
-        binding.seekBarLandY.progress = landY
+        binding.seekBarPortX.progress = prefs.getInt("pos_x_port", 240)
+        binding.seekBarPortY.progress = prefs.getInt("pos_y_port", 10)
+        binding.seekBarLandX.progress = prefs.getInt("pos_x_land", 500)
+        binding.seekBarLandY.progress = prefs.getInt("pos_y_land", 10)
 
         val textSize = prefs.getFloat("text_size", 11.0f)
         binding.seekBarTextSize.progress = textSize.toInt()
@@ -97,7 +122,6 @@ class MainActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
 
-        // Kutu ve Çubukları Senkronize Eden Yardımcı Fonksiyonlar
         setupInputSync(binding.etPortX, binding.seekBarPortX, "pos_x_port")
         setupInputSync(binding.etPortY, binding.seekBarPortY, "pos_y_port")
         setupInputSync(binding.etLandX, binding.seekBarLandX, "pos_x_land")
@@ -106,7 +130,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupInputSync(editText: EditText, seekBar: SeekBar, prefKey: String) {
         val prefs = getSharedPreferences("NetSpeedPrefs", MODE_PRIVATE)
-        
         editText.addTextChangedListener(object : android.text.TextWatcher {
             override fun afterTextChanged(s: android.text.Editable?) {
                 if (isUpdating) return
@@ -139,7 +162,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun sendUpdateBroadcast() {
-        val intent = Intent(this, NetworkSpeedService::class.java).apply { action = "ACTION_UPDATE_SETTINGS" }
-        startService(intent)
+        startService(Intent(this, NetworkSpeedService::class.java).apply { action = "ACTION_UPDATE_SETTINGS" })
     }
 }

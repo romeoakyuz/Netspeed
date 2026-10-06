@@ -95,7 +95,6 @@ class NetworkSpeedService : Service() {
 
         txtWidgetSpeed.textSize = prefs.getFloat("text_size", 11.0f)
 
-        // STATUS BAR'A GİREBİLMESİ İÇİN KRİTİK BAYRAK: FLAG_LAYOUT_NO_LIMITS
         var flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or 
                     WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or 
                     WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
@@ -111,11 +110,9 @@ class NetworkSpeedService : Service() {
         params.x = x
         params.y = y
 
-        // XIAOMI ÇENTİK (NOTCH) ENGELİNİ AŞMAK İÇİN KRİTİK AYAR
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             params.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         }
-        
         return params
     }
 
@@ -134,7 +131,7 @@ class NetworkSpeedService : Service() {
 
                 if (timeElapsed > 0) {
                     val bytesPerSec = (currentRxBytes - lastRxBytes) / timeElapsed
-                    val (value, unit) = formatSpeedParts(bytesPerSec)
+                    val (value, unit) = formatSpeedPartsSpeedtest(bytesPerSec)
                     
                     txtWidgetSpeed.text = "$value $unit"
                     updateNotificationDynamicIcon(value, unit)
@@ -148,11 +145,14 @@ class NetworkSpeedService : Service() {
         handler.post(runnable)
     }
 
-    private fun formatSpeedParts(bytesPerSec: Double): Pair<String, String> {
+    // SPEEDTEST FORMATI: Mbps (Megabit/s) ve Kbps (Kilobit/s) 
+    private fun formatSpeedPartsSpeedtest(bytesPerSec: Double): Pair<String, String> {
+        val bitsPerSec = bytesPerSec * 8.0 // Byte'ı bit'e çeviriyoruz
+        
         return when {
-            bytesPerSec >= 1_048_576 -> Pair(String.format(Locale.US, "%.1f", bytesPerSec / 1_048_576), "MB/s")
-            bytesPerSec >= 1_024 -> Pair(String.format(Locale.US, "%.1f", bytesPerSec / 1_024), "KB/s")
-            else -> Pair(String.format(Locale.US, "%d", bytesPerSec.toInt()), "B/s")
+            bitsPerSec >= 1_000_000 -> Pair(String.format(Locale.US, "%.2f", bitsPerSec / 1_000_000), "Mbps")
+            bitsPerSec >= 1_000 -> Pair(String.format(Locale.US, "%.1f", bitsPerSec / 1_000), "Kbps")
+            else -> Pair(String.format(Locale.US, "%d", bitsPerSec.toInt()), "bps")
         }
     }
 

@@ -11,6 +11,12 @@
         
         <TextView android:id="@+id/txtStatus" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="#1B3022" android:drawableStart="@drawable/ic_check" android:padding="12dp" android:text=" Yüzen Widget Aktif!" android:textColor="#A5D6A7" android:textSize="16sp" android:textStyle="bold" />
         
+        <!-- İZİNLER BÖLÜMÜ -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:text="CİHAZ İZİNLERİ (XIAOMI İÇİN)" android:textColor="#EF5350" android:textStyle="bold" />
+        
+        <Button android:id="@+id/btnBattery" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="1. Pil Optimizasyonunu Kapat" android:backgroundTint="#1E293B" android:textColor="#FFFFFF" />
+        <Button android:id="@+id/btnAutoStart" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="2. Otomatik Başlatma İzni Ver" android:backgroundTint="#1E293B" android:textColor="#FFFFFF" />
+
         <!-- DİKEY EKRAN AYARLARI -->
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:text="DİKEY EKRAN (PORTRAIT) AYARLARI" android:textColor="#4DD0E1" android:textStyle="bold" />
         
@@ -42,7 +48,7 @@
         <TextView android:id="@+id/lblTextSize" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="Metin Boyutu: 11.0 sp" android:textColor="#FFFFFF" />
         <SeekBar android:id="@+id/seekBarTextSize" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="30" android:min="8" android:progress="11" />
         
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:gravity="center_vertical" android:orientation="horizontal">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:gravity="center_vertical" android:orientation="horizontal" android:paddingBottom="20dp">
             <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Dokunmayı Alt Ekrana Geçir" android:textColor="#FFFFFF" />
             <androidx.appcompat.widget.SwitchCompat android:id="@+id/switchTouchThrough" android:layout_width="wrap_content" android:layout_height="wrap_content" />
         </LinearLayout>
