@@ -3,7 +3,6 @@ package com.example.radyo
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -40,24 +39,29 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadSettingsToUI() {
         val prefs = getSharedPreferences("NetSpeedPrefs", MODE_PRIVATE)
-        val isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
         
-        val x = if (isLandscape) prefs.getInt("pos_x_land", 240) else prefs.getInt("pos_x_port", 240)
-        val y = if (isLandscape) prefs.getInt("pos_y_land", 10) else prefs.getInt("pos_y_port", 10)
+        val portX = prefs.getInt("pos_x_port", 240)
+        val portY = prefs.getInt("pos_y_port", 10)
+        val landX = prefs.getInt("pos_x_land", 500)
+        val landY = prefs.getInt("pos_y_land", 10)
+        
         val textSize = prefs.getFloat("text_size", 11.0f)
         val touchPass = prefs.getBoolean("touch_pass", true)
         val isActive = prefs.getBoolean("is_active", true)
 
-        binding.etX.setText(x.toString())
-        binding.etY.setText(y.toString())
-        binding.seekBarX.progress = x
-        binding.seekBarY.progress = y
+        binding.seekBarPortX.progress = portX
+        binding.seekBarPortY.progress = portY
+        binding.seekBarLandX.progress = landX
+        binding.seekBarLandY.progress = landY
+        
+        binding.lblPortX.text = "X Eksen: $portX px"
+        binding.lblPortY.text = "Y Eksen: $portY px"
+        binding.lblLandX.text = "X Eksen: $landX px"
+        binding.lblLandY.text = "Y Eksen: $landY px"
+
         binding.seekBarTextSize.progress = textSize.toInt()
         binding.switchTouchThrough.isChecked = touchPass
         binding.switchWidgetToggle.isChecked = isActive
-
-        binding.lblX.text = "X Eksen Kaydır: $x px"
-        binding.lblY.text = "Y Eksen Kaydır: $y px"
     }
 
     private fun setupListeners() {
@@ -76,24 +80,17 @@ class MainActivity : AppCompatActivity() {
         val seekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (!fromUser) return
-                val isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
                 val editor = prefs.edit()
 
                 when (seekBar?.id) {
-                    R.id.seekBarX -> {
-                        binding.etX.setText(progress.toString())
-                        binding.lblX.text = "X Eksen Kaydır: $progress px"
-                        if (isLandscape) editor.putInt("pos_x_land", progress) else editor.putInt("pos_x_port", progress)
-                    }
-                    R.id.seekBarY -> {
-                        binding.etY.setText(progress.toString())
-                        binding.lblY.text = "Y Eksen Kaydır: $progress px"
-                        if (isLandscape) editor.putInt("pos_y_land", progress) else editor.putInt("pos_y_port", progress)
-                    }
-                    R.id.seekBarTextSize -> {
+                    R.id.seekBarPortX -> { binding.lblPortX.text = "X Eksen: $progress px"; editor.putInt("pos_x_port", progress) }
+                    R.id.seekBarPortY -> { binding.lblPortY.text = "Y Eksen: $progress px"; editor.putInt("pos_y_port", progress) }
+                    R.id.seekBarLandX -> { binding.lblLandX.text = "X Eksen: $progress px"; editor.putInt("pos_x_land", progress) }
+                    R.id.seekBarLandY -> { binding.lblLandY.text = "Y Eksen: $progress px"; editor.putInt("pos_y_land", progress) }
+                    R.id.seekBarTextSize -> { 
                         val fProgress = progress.toFloat()
                         binding.lblTextSize.text = "Metin Boyutu: $fProgress sp"
-                        editor.putFloat("text_size", fProgress)
+                        editor.putFloat("text_size", fProgress) 
                     }
                 }
                 editor.apply()
@@ -103,8 +100,10 @@ class MainActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         }
 
-        binding.seekBarX.setOnSeekBarChangeListener(seekBarChangeListener)
-        binding.seekBarY.setOnSeekBarChangeListener(seekBarChangeListener)
+        binding.seekBarPortX.setOnSeekBarChangeListener(seekBarChangeListener)
+        binding.seekBarPortY.setOnSeekBarChangeListener(seekBarChangeListener)
+        binding.seekBarLandX.setOnSeekBarChangeListener(seekBarChangeListener)
+        binding.seekBarLandY.setOnSeekBarChangeListener(seekBarChangeListener)
         binding.seekBarTextSize.setOnSeekBarChangeListener(seekBarChangeListener)
 
         binding.switchTouchThrough.setOnCheckedChangeListener { _, isChecked ->
