@@ -1,13 +1,17 @@
 package com.example.radyo
 
 import android.Manifest
+import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
 import android.provider.Settings
 import android.widget.EditText
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -23,22 +27,45 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        checkPermissionsSequentially()
         loadSettingsToUI()
         setupListeners()
+        setupPermissionButtons()
     }
 
-    private fun checkPermissionsSequentially() {
-        // 1. Önce Bildirim İzni (Android 13+)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+    private fun setupPermissionButtons() {
+        binding.btnOverlay.setOnClickListener {
+            val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName"))
+            startActivity(intent)
+        }
+
+        binding.btnNotification.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 101)
-                return
+            } else {
+                Toast.makeText(this, "Bu sürümde bildirim izni otomatik verilir.", Toast.LENGTH_SHORT).show()
             }
         }
-        // 2. Ardından Ekran Üzerinde Gösterme İzni (Floating Window)
-        if (!Settings.canDrawOverlays(this)) {
-            startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, android.net.Uri.parse("package:$packageName")))
+
+        binding.btnBattery.setOnClickListener {
+            try {
+                val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {
+                    data = Uri.parse("package:$packageName")
+                }
+                startActivity(intent)
+            } catch (e: Exception) {
+                Toast.makeText(this, "Pil ayarları açılamadı.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.btnAutoStart.setOnClickListener {
+            try {
+                val intent = Intent().apply {
+                    component = ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity")
+                }
+                startActivity(intent)
+            } catch (e: Exception) {
+                Toast.makeText(this, "Bu menü cihazınızda bulunamadı.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
