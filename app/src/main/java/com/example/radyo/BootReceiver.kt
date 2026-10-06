@@ -9,7 +9,7 @@ class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action == Intent.ACTION_BOOT_COMPLETED || intent.action == "android.intent.action.QUICKBOOT_POWERON") {
             val prefs = context.getSharedPreferences("NetSpeedPrefs", Context.MODE_PRIVATE)
-            val isActive = prefs.getBoolean("is_active", true)
+            val isActive = prefs.getBoolean("is_active", false)
             
             if (isActive) {
                 val serviceIntent = Intent(context, NetworkSpeedService::class.java)

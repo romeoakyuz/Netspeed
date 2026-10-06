@@ -51,7 +51,12 @@ class MainActivity : AppCompatActivity() {
         binding.lblTextSize.text = "Metin Boyutu: $textSize sp"
         
         binding.switchTouchThrough.isChecked = prefs.getBoolean("touch_pass", true)
-        binding.switchWidgetToggle.isChecked = prefs.getBoolean("is_active", true)
+        
+        // Varsayılan olarak ilk kurulumda KAPALI (false) gelsin
+        val isActive = prefs.getBoolean("is_active", false)
+        binding.switchWidgetToggle.isChecked = isActive
+        updateStatusText(isActive)
+
         isUpdating = false
     }
 
@@ -60,6 +65,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.switchWidgetToggle.setOnCheckedChangeListener { _, isChecked ->
             prefs.edit().putBoolean("is_active", isChecked).apply()
+            updateStatusText(isChecked)
+            
             val serviceIntent = Intent(this, NetworkSpeedService::class.java)
             if (isChecked) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) startForegroundService(serviceIntent) else startService(serviceIntent)
@@ -89,6 +96,18 @@ class MainActivity : AppCompatActivity() {
         setupInputSync(binding.etPortY, binding.seekBarPortY, "pos_y_port")
         setupInputSync(binding.etLandX, binding.seekBarLandX, "pos_x_land")
         setupInputSync(binding.etLandY, binding.seekBarLandY, "pos_y_land")
+    }
+
+    private fun updateStatusText(isActive: Boolean) {
+        if (isActive) {
+            binding.txtStatus.text = " Yüzen Widget Aktif!"
+            binding.txtStatus.setBackgroundColor(android.graphics.Color.parseColor("#1B3022"))
+            binding.txtStatus.setTextColor(android.graphics.Color.parseColor("#A5D6A7"))
+        } else {
+            binding.txtStatus.text = " Widget Kapalı"
+            binding.txtStatus.setBackgroundColor(android.graphics.Color.parseColor("#3A1A1A"))
+            binding.txtStatus.setTextColor(android.graphics.Color.parseColor("#EF5350"))
+        }
     }
 
     private fun setupInputSync(editText: EditText, seekBar: SeekBar, prefKey: String) {
