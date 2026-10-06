@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#121824" android:padding="16dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingBottom="16dp">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="NetSpeed Widget..." android:textColor="#FFFFFF" android:textSize="22sp" android:textStyle="bold" />
+            <androidx.appcompat.widget.SwitchCompat android:id="@+id/switchWidgetToggle" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
+        <TextView android:id="@+id/txtStatus" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="#1B3022" android:drawableStart="@drawable/ic_check" android:padding="12dp" android:text=" Yüzen Widget Aktif!" android:textColor="#A5D6A7" android:textSize="16sp" android:textStyle="bold" />
+        
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:text="KONUM AYARLARI (PİKSEL)" android:textColor="#4DD0E1" android:textStyle="bold" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="horizontal">
+            <EditText android:id="@+id/etX" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="#1E293B" android:hint="X Eksen" android:inputType="numberSigned" android:padding="10dp" android:textColor="#FFFFFF" android:textColorHint="#888888"/>
+            <View android:layout_width="10dp" android:layout_height="match_parent" />
+            <EditText android:id="@+id/etY" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="#1E293B" android:hint="Y Eksen" android:inputType="numberSigned" android:padding="10dp" android:textColor="#FFFFFF" android:textColorHint="#888888"/>
+        </LinearLayout>
+        
+        <TextView android:id="@+id/lblX" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="X Eksen Kaydır: 240 px" android:textColor="#FFFFFF" />
+        <SeekBar android:id="@+id/seekBarX" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="1500" android:progress="240" />
+        <TextView android:id="@+id/lblY" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="Y Eksen Kaydır: 10 px" android:textColor="#FFFFFF" />
+        <SeekBar android:id="@+id/seekBarY" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="2500" android:progress="10" />
+        
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:text="GÖRÜNÜM" android:textColor="#4DD0E1" android:textStyle="bold" />
+        <TextView android:id="@+id/lblTextSize" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="Metin Boyutu: 11.0 sp" android:textColor="#FFFFFF" />
+        <SeekBar android:id="@+id/seekBarTextSize" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="30" android:min="8" android:progress="11" />
+        
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:gravity="center_vertical" android:orientation="horizontal">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Tıklamaları Engelle / Dokunmayı Geçir" android:textColor="#FFFFFF" />
+            <androidx.appcompat.widget.SwitchCompat android:id="@+id/switchTouchThrough" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

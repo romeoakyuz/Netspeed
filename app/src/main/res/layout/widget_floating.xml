@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/txtWidgetSpeed"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:paddingStart="4dp"
+    android:paddingEnd="4dp"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp"
+    android:text="0 Kbps"
+    android:textColor="#FFFFFF"
+    android:shadowColor="#000000"
+    android:shadowDx="1.5"
+    android:shadowDy="1.5"
+    android:shadowRadius="3"
+    android:textSize="11sp"
+    android:textStyle="bold" />
