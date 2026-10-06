@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#121824" android:orientation="vertical" android:padding="10dp">
+    android:background="#121824" android:orientation="vertical" android:padding="14dp" android:gravity="center_vertical">
     
     <!-- Başlık ve Switch -->
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingBottom="4dp">
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="NetSpeed Widget" android:textColor="#FFFFFF" android:textSize="16sp" android:textStyle="bold" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal" android:paddingBottom="6dp">
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="NetSpeed Widget" android:textColor="#FFFFFF" android:textSize="18sp" android:textStyle="bold" />
         <androidx.appcompat.widget.SwitchCompat android:id="@+id/switchWidgetToggle" android:layout_width="wrap_content" android:layout_height="wrap_content" />
     </LinearLayout>
     
     <!-- Durum Çubuğu -->
-    <TextView android:id="@+id/txtStatus" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="#1B3022" android:drawableStart="@drawable/ic_check" android:padding="6dp" android:text=" Widget Kapalı" android:textColor="#A5D6A7" android:textSize="12sp" android:textStyle="bold" />
+    <TextView android:id="@+id/txtStatus" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="#3A1A1A" android:drawableStart="@drawable/ic_check" android:padding="8dp" android:text=" Widget Kapalı" android:textColor="#EF5350" android:textSize="13sp" android:textStyle="bold" />
     
     <!-- İzinler Butonu -->
-    <Button android:id="@+id/btnOpenPermissions" android:layout_width="match_parent" android:layout_height="34dp" android:layout_marginTop="6dp" android:text="🛡️ İzinler Menüsü" android:backgroundTint="#0288D1" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+    <Button android:id="@+id/btnOpenPermissions" android:layout_width="match_parent" android:layout_height="42dp" android:layout_marginTop="10dp" android:text="🛡️ İzinler Menüsü ve Durumları" android:backgroundTint="#0288D1" android:textColor="#FFFFFF" android:textSize="13sp" android:textStyle="bold" />
 
     <!-- DİKEY EKRAN AYARLARI -->
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="DİKEY EKRAN (PORTRAIT)" android:textColor="#4DD0E1" android:textSize="11sp" android:textStyle="bold" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="DİKEY EKRAN (PORTRAIT)" android:textColor="#4DD0E1" android:textSize="12sp" android:textStyle="bold" />
     
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="2dp" android:gravity="center_vertical">
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="X:" android:textColor="#FFFFFF" android:textSize="11sp"/>
-        <EditText android:id="@+id/etPortX" android:layout_width="0dp" android:layout_height="30dp" android:layout_weight="1" android:inputType="numberSigned" android:textColor="#FFFFFF" android:background="#1E293B" android:padding="2dp" android:layout_marginStart="4dp" android:textSize="11sp" android:textAlignment="center"/>
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Y:" android:textColor="#FFFFFF" android:textSize="11sp" android:layout_marginStart="8dp"/>
-        <EditText android:id="@+id/etPortY" android:layout_width="0dp" android:layout_height="30dp" android:layout_weight="1" android:inputType="numberSigned" android:textColor="#FFFFFF" android:background="#1E293B" android:padding="2dp" android:layout_marginStart="4dp" android:textSize="11sp" android:textAlignment="center"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp" android:gravity="center_vertical">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="X:" android:textColor="#FFFFFF" android:textSize="12sp"/>
+        <EditText android:id="@+id/etPortX" android:layout_width="0dp" android:layout_height="36dp" android:layout_weight="1" android:inputType="numberSigned" android:textColor="#FFFFFF" android:background="#1E293B" android:padding="4dp" android:layout_marginStart="6dp" android:textSize="12sp" android:textAlignment="center"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Y:" android:textColor="#FFFFFF" android:textSize="12sp" android:layout_marginStart="12dp"/>
+        <EditText android:id="@+id/etPortY" android:layout_width="0dp" android:layout_height="36dp" android:layout_weight="1" android:inputType="numberSigned" android:textColor="#FFFFFF" android:background="#1E293B" android:padding="4dp" android:layout_marginStart="6dp" android:textSize="12sp" android:textAlignment="center"/>
     </LinearLayout>
     
-    <SeekBar android:id="@+id/seekBarPortX" android:layout_width="match_parent" android:layout_height="24dp" android:min="-200" android:max="1500" />
-    <SeekBar android:id="@+id/seekBarPortY" android:layout_width="match_parent" android:layout_height="24dp" android:min="-200" android:max="2500" />
+    <SeekBar android:id="@+id/seekBarPortX" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:min="-200" android:max="1500" />
+    <SeekBar android:id="@+id/seekBarPortY" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:min="-200" android:max="2500" />
 
     <!-- YATAY EKRAN AYARLARI -->
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="YATAY EKRAN (LANDSCAPE)" android:textColor="#FFA726" android:textSize="11sp" android:textStyle="bold" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="YATAY EKRAN (LANDSCAPE)" android:textColor="#FFA726" android:textSize="12sp" android:textStyle="bold" />
     
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="2dp" android:gravity="center_vertical">
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="X:" android:textColor="#FFFFFF" android:textSize="11sp"/>
-        <EditText android:id="@+id/etLandX" android:layout_width="0dp" android:layout_height="30dp" android:layout_weight="1" android:inputType="numberSigned" android:textColor="#FFFFFF" android:background="#1E293B" android:padding="2dp" android:layout_marginStart="4dp" android:textSize="11sp" android:textAlignment="center"/>
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Y:" android:textColor="#FFFFFF" android:textSize="11sp" android:layout_marginStart="8dp"/>
-        <EditText android:id="@+id/etLandY" android:layout_width="0dp" android:layout_height="30dp" android:layout_weight="1" android:inputType="numberSigned" android:textColor="#FFFFFF" android:background="#1E293B" android:padding="2dp" android:layout_marginStart="4dp" android:textSize="11sp" android:textAlignment="center"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp" android:gravity="center_vertical">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="X:" android:textColor="#FFFFFF" android:textSize="12sp"/>
+        <EditText android:id="@+id/etLandX" android:layout_width="0dp" android:layout_height="36dp" android:layout_weight="1" android:inputType="numberSigned" android:textColor="#FFFFFF" android:background="#1E293B" android:padding="4dp" android:layout_marginStart="6dp" android:textSize="12sp" android:textAlignment="center"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Y:" android:textColor="#FFFFFF" android:textSize="12sp" android:layout_marginStart="12dp"/>
+        <EditText android:id="@+id/etLandY" android:layout_width="0dp" android:layout_height="36dp" android:layout_weight="1" android:inputType="numberSigned" android:textColor="#FFFFFF" android:background="#1E293B" android:padding="4dp" android:layout_marginStart="6dp" android:textSize="12sp" android:textAlignment="center"/>
     </LinearLayout>
 
-    <SeekBar android:id="@+id/seekBarLandX" android:layout_width="match_parent" android:layout_height="24dp" android:min="-200" android:max="2500" />
-    <SeekBar android:id="@+id/seekBarLandY" android:layout_width="match_parent" android:layout_height="24dp" android:min="-200" android:max="1500" />
+    <SeekBar android:id="@+id/seekBarLandX" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:min="-200" android:max="2500" />
+    <SeekBar android:id="@+id/seekBarLandY" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:min="-200" android:max="1500" />
     
     <!-- GÖRÜNÜM AYARLARI -->
-    <TextView android:id="@+id/lblTextSize" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Metin Boyutu: 11.0 sp" android:textColor="#FFFFFF" android:textSize="11sp"/>
-    <SeekBar android:id="@+id/seekBarTextSize" android:layout_width="match_parent" android:layout_height="24dp" android:max="30" android:min="8" android:progress="11" />
+    <TextView android:id="@+id/lblTextSize" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="Metin Boyutu: 11.0 sp" android:textColor="#FFFFFF" android:textSize="12sp"/>
+    <SeekBar android:id="@+id/seekBarTextSize" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:max="30" android:min="8" android:progress="11" />
     
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:gravity="center_vertical" android:orientation="horizontal">
-        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Dokunmayı Alt Ekrana Geçir" android:textColor="#FFFFFF" android:textSize="11sp"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:gravity="center_vertical" android:orientation="horizontal">
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Dokunmayı Alt Ekrana Geçir" android:textColor="#FFFFFF" android:textSize="12sp"/>
         <androidx.appcompat.widget.SwitchCompat android:id="@+id/switchTouchThrough" android:layout_width="wrap_content" android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>
